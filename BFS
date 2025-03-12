@@ -1,0 +1,16 @@
+def bfs_step():
+    if st.session_state.bfs_queue and not st.session_state.bfs_complete:
+        node = st.session_state.bfs_queue.popleft()
+        st.session_state.current_node = node  
+
+        if node not in st.session_state.visited:
+            st.session_state.visited.append(node)
+
+            node_index = nodes.index(node)
+            for i, connected in enumerate(graph_matrix[node_index]):
+                if connected == 1 and nodes[i] not in st.session_state.visited:
+                    st.session_state.edges_traversed.append((node, nodes[i]))
+                    st.session_state.bfs_queue.append(nodes[i])
+
+    if not st.session_state.bfs_queue:
+        st.session_state.bfs_complete = True
